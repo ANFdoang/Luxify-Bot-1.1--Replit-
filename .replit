@@ -1,14 +1,11 @@
-entrypoint = "index.js"
-modules = ["nodejs-22"]
-hidden = [".config", "package-lock.json"]
+[workflows]
+runButton = "Run Bot"
 
-[gitHubImport]
-requiredFiles = [".replit", "replit.nix", "package.json", "package-lock.json"]
+[[workflows.workflow]]
+name = "Run Bot"
+author = 14531969
+mode = "sequential"
 
-[nix]
-channel = "stable-24_11"
-
-[deployment]
-run = ["node", "index.js"]
-deploymentTarget = "autoscale"
-ignorePorts = false
+[[workflows.workflow.tasks]]
+task = "shell.exec"
+args = "cd bot && node index.js"
