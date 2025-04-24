@@ -1,11 +1,18 @@
-[workflows]
-runButton = "Run Bot"
+entrypoint = "bot/index.js"
+modules = ["nodejs-22"]
+hidden = [".config", "bot/package-lock.json"]
 
-[[workflows.workflow]]
-name = "Run Bot"
-author = 14531969
-mode = "sequential"
+[gitHubImport]
+requiredFiles = [".replit", "replit.nix", "bot/package.json", "bot/package-lock.json"]
 
-[[workflows.workflow.tasks]]
-task = "shell.exec"
-args = "cd bot && node index.js"
+[nix]
+channel = "stable-24_11"
+packages = ["killall"]
+
+[deployment]
+run = ["node", "bot/index.js"]
+deploymentTarget = "autoscale"
+ignorePorts = false
+
+[[ports]]
+localPort = 3000
